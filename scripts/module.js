@@ -25,7 +25,7 @@ class S3CustomUrl {
         game.settings.register(this.ID, this.SETTINGS.PATH_STYLE, {
             name: `S3_CUSTOM_URL.settings.${this.SETTINGS.PATH_STYLE}.Name`,
             default: true,
-            type: boolean,
+            type: Boolean,
             scope: 'world',
             config: true,
             hint: `S3_CUSTOM_URL.settings.${this.SETTINGS.PATH_STYLE}.Hint`,
@@ -43,7 +43,7 @@ class S3CustomUrl {
         game.settings.register(this.ID, this.SETTINGS.CUSTOM_STYLE, {
             name: `S3_CUSTOM_URL.settings.${this.SETTINGS.CUSTOM_STYLE}.Name`,
             default: false,
-            type: boolean,
+            type: Boolean,
             scope: 'world',
             config: true,
             hint: `S3_CUSTOM_URL.settings.${this.SETTINGS.CUSTOM_STYLE}.Hint`,
