@@ -2,7 +2,7 @@
     "S3_CUSTOM_URL": {
         "settings": {
           "custom_prefix": {
-            "Name": "Custom Prefix",
+            "Name": "[EXPERIMENTAL] Custom Prefix",
             "Hint": "Replaces the entire hostname of the S3 URL. The URL will be [Custom Prefix][Path with leading / removed]"
           },
           "path_style": {
