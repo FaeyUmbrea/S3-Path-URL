@@ -118,4 +118,6 @@ let S3CustomURL = {
     createS3URL: S3CustomUrl.createS3URL
 }
 
+window.S3CustomURL = S3CustomURL;
+
 export default S3CustomURL;
