@@ -51,7 +51,7 @@ class S3CustomUrl {
     }
 
     static registerWrappers(){
-        libWrapper.register(ID, "FilePicker.upload", async function (wrapped, ...args) {
+        libWrapper.register(this.ID, "FilePicker.upload", async function (wrapped, ...args) {
             let result = await wrapped(...args);
             if (args[0] === "s3") {
                 let originalURL = result.path;
@@ -59,7 +59,7 @@ class S3CustomUrl {
             }
             return result;
         }, libWrapper.WRAPPER);
-        libWrapper.register(ID, "FilePicker.browse", async function (wrapped, ...args) {
+        libWrapper.register(this.ID, "FilePicker.browse", async function (wrapped, ...args) {
             let result = await wrapped(...args);
             if (args[0] === "s3") {
                 console.log(result);
@@ -83,7 +83,7 @@ class S3CustomUrl {
 
     static createS3URL(bucket, filepath){
         let uri;
-        if (!game.setting.get(this.ID, this.SETTINGS.CUSTOM_STYLE)&&game.settings.get(this.ID,this.SETTINGS.PATH_STYLE)){
+        if (!game.settings.get('s3-custom-url', "custom_style")&&game.settings.get('s3-custom-url',"path_style")){
             uri = 
             game.data.files.s3.endpoint.protocol + 
             "//" + 
@@ -93,8 +93,8 @@ class S3CustomUrl {
             "/" +
             filepath
         }
-        else if(game.setting.get(this.ID, this.SETTINGS.CUSTOM_STYLE)){
-            uri = game.settings.get(this.ID, this.SETTINGS.CUSTOM_PREFIX) + path;   
+        else if(game.settings.get('s3-custom-url', "custom_style")){
+            uri = game.settings.get('s3-custom-url', "custom_prefix") + path;   
         }
         else{
             uri = 
@@ -119,5 +119,3 @@ let S3CustomURL = {
 }
 
 window.S3CustomURL = S3CustomURL;
-
-export default S3CustomURL;
