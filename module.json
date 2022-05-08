@@ -15,7 +15,9 @@
     }
   ],
   "dependencies": [
-    { "name": "libWrapper" }
+    {
+        "name": "lib-wrapper"
+    }
   ],
   "conflicts": [
     
