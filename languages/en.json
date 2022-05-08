@@ -1,5 +1,5 @@
 {
-    "S3-CUSTOM-URL": {
+    "S3_CUSTOM_URL": {
         "settings": {
           "custom_prefix": {
             "Name": "Custom Prefix",

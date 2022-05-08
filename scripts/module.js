@@ -65,7 +65,7 @@ class S3CustomUrl {
                 console.log(result);
                 result.files?.forEach((file, index) => {
                     let originalUrl = file
-                    result.files[index] = transformURL(originalUrl);
+                    result.files[index] = S3CustomUrl.transformURL(originalUrl);
                 });
             }
             return result;
@@ -76,7 +76,8 @@ class S3CustomUrl {
         var newUrl = url,
             tokens = newUrl.split("/"),
             path = tokens.slice(3).join("/"),
-            bucket = tokens.slice(2).split(".").slice(0);
+            vhostBucket = tokens[2],
+            bucket = vhostBucket.split(".")[0];
     
         return this.createS3URL(bucket,path);
     }
@@ -94,7 +95,7 @@ class S3CustomUrl {
             filepath
         }
         else if(game.settings.get('s3-custom-url', "custom_style")){
-            uri = game.settings.get('s3-custom-url', "custom_prefix") + path;   
+            uri = game.settings.get('s3-custom-url', "custom_prefix") + filepath;   
         }
         else{
             uri = 
