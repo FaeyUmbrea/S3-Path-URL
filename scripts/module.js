@@ -84,7 +84,7 @@ class S3CustomUrl {
 
     static createS3URL(bucket, filepath){
         let uri;
-        if (!game.settings.get('s3-path-url', "custom_style")&&game.settings.get('s3-custom-url',"path_style")){
+        if (!game.settings.get('s3-path-url', "custom_style")&&game.settings.get('s3-path-url',"path_style")){
             uri = 
             game.data.files.s3.endpoint.protocol + 
             "//" + 
