@@ -1,7 +1,7 @@
 {
-  "name": "module",
-  "title": "New Module",
-  "description": "",
+  "name": "s3-custom-url",
+  "title": "S3 URL Customizer",
+  "description": "This module allows client-side modifications to S3 URLs, allowing support for Path-Style and other weird configurations.",
   "version": "This is auto replaced",
   "library": "false",
   "manifestPlusVersion": "1.0.0",
@@ -15,7 +15,7 @@
     }
   ],
   "dependencies": [
-
+    { "name": "libWrapper" }
   ],
   "conflicts": [
     

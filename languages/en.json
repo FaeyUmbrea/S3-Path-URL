@@ -1,3 +1,10 @@
 {
-    "MODULE.hello": "hello"
+    "S3-CUSTOM-URL": {
+        "settings": {
+          "inject-button": {
+            "Name": "Custom Prefix",
+            "Hint": "Replaces the entire hostname of the S3 URL"
+          }
+        }
+      }
 }
