@@ -1,9 +1,17 @@
 {
     "S3-CUSTOM-URL": {
         "settings": {
-          "inject-button": {
+          "custom_prefix": {
             "Name": "Custom Prefix",
-            "Hint": "Replaces the entire hostname of the S3 URL"
+            "Hint": "Replaces the entire hostname of the S3 URL. The URL will be [Custom Prefix][Path with leading / removed]"
+          },
+          "path_style": {
+            "Name": "Path Style URL",
+            "Hint": "If checked, it will convert the URLs to Path Style URLs."
+          },
+          "custom_style": {
+            "Name": "Custom Style URL",
+            "Hint": "If checked, it will replace the URLs with the custom prefix. Path Style will be ignored"
           }
         }
       }

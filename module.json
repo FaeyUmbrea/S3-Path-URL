@@ -9,9 +9,9 @@
   "compatibleCoreVersion": "9",
   "authors": [
     {
-      "name": "The League of Extraordinary FVTT Developers",
-      "url": "https://github.com/League-of-Foundry-Developers",
-      "discord": "discordID#0001"
+      "name": "Faey Umbrea",
+      "url": "https://github.com/FaeyUmbrea/",
+      "discord": "Faey#0001"
     }
   ],
   "dependencies": [
@@ -46,7 +46,7 @@
   "media": [
     {
       "type": "icon",
-      "url": "https://avatars2.githubusercontent.com/u/71292812?s=400&u=ccdb4eeb7abf551ca8f314e5a9bfd0479a4d3d41&v=4"
+      "url": "https://avatars.githubusercontent.com/u/1144986?s=400&u=852e2045427c19494b82406fdabad710fca8ea02&v=4"
     }
   ]
 }
