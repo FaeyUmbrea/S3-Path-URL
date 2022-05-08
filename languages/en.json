@@ -1,5 +1,5 @@
 {
-    "S3_CUSTOM_URL": {
+    "S3_PATH_URL": {
         "settings": {
           "custom_prefix": {
             "Name": "[EXPERIMENTAL] Custom Prefix",

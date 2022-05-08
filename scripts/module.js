@@ -23,30 +23,30 @@ class S3CustomUrl {
 
     static registerSettings(){
         game.settings.register(this.ID, this.SETTINGS.PATH_STYLE, {
-            name: `S3_CUSTOM_URL.settings.${this.SETTINGS.PATH_STYLE}.Name`,
+            name: `S3_PATH_URL.settings.${this.SETTINGS.PATH_STYLE}.Name`,
             default: true,
             type: Boolean,
             scope: 'world',
             config: true,
-            hint: `S3_CUSTOM_URL.settings.${this.SETTINGS.PATH_STYLE}.Hint`,
+            hint: `S3_PATH_URL.settings.${this.SETTINGS.PATH_STYLE}.Hint`,
         });
     
         game.settings.register(this.ID, this.SETTINGS.CUSTOM_PREFIX, {
-            name: `S3_CUSTOM_URL.settings.${this.SETTINGS.CUSTOM_PREFIX}.Name`,
+            name: `S3_PATH_URL.settings.${this.SETTINGS.CUSTOM_PREFIX}.Name`,
             default: "https://url.to.endpoint.com/bucket/",
             type: String,
             scope: 'world',
             config: true,
-            hint: `S3_CUSTOM_URL.settings.${this.SETTINGS.CUSTOM_PREFIX}.Hint`,
+            hint: `S3_PATH_URL.settings.${this.SETTINGS.CUSTOM_PREFIX}.Hint`,
         });
 
         game.settings.register(this.ID, this.SETTINGS.CUSTOM_STYLE, {
-            name: `S3_CUSTOM_URL.settings.${this.SETTINGS.CUSTOM_STYLE}.Name`,
+            name: `S3_PATH_URL.settings.${this.SETTINGS.CUSTOM_STYLE}.Name`,
             default: false,
             type: Boolean,
             scope: 'world',
             config: true,
-            hint: `S3_CUSTOM_URL.settings.${this.SETTINGS.CUSTOM_STYLE}.Hint`,
+            hint: `S3_PATH_URL.settings.${this.SETTINGS.CUSTOM_STYLE}.Hint`,
         });
     }
 
