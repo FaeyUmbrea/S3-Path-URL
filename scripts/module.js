@@ -4,7 +4,7 @@ class S3CustomUrl {
         PATH_STYLE: "path_style",
         CUSTOM_STYLE: "custom_style",
     }
-    static ID = 's3-custom-url'
+    static ID = 's3-path-url'
 
     static initialize(){
         if (!game.modules.get('lib-wrapper')?.active && game.user.isGM) {
