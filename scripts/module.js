@@ -53,19 +53,16 @@ class S3PathUrl {
     static registerWrappers(){
         libWrapper.register(this.ID, "FilePicker.upload", async function (wrapped, ...args) {
             let result = await wrapped(...args);
-            if (args[0] === "s3") {
-                let originalURL = result.path;
-                result.path = S3PathUrl.transformURL(originalUrl);
+            if (args[0] === "s3" && !!result.path) {
+                result.path = S3PathUrl.transformURL(result.path);
             }
             return result;
         }, libWrapper.WRAPPER);
         libWrapper.register(this.ID, "FilePicker.browse", async function (wrapped, ...args) {
             let result = await wrapped(...args);
             if (args[0] === "s3") {
-                console.log(result);
                 result.files?.forEach((file, index) => {
-                    let originalUrl = file
-                    result.files[index] = S3PathUrl.transformURL(originalUrl);
+                    result.files[index] = S3PathUrl.transformURL(file);
                 });
             }
             return result;
