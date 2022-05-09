@@ -1,4 +1,4 @@
-class S3CustomUrl {
+class S3PathUrl {
     static SETTINGS = {
         CUSTOM_PREFIX: "custom_prefix",
         PATH_STYLE: "path_style",
@@ -65,7 +65,7 @@ class S3CustomUrl {
                 console.log(result);
                 result.files?.forEach((file, index) => {
                     let originalUrl = file
-                    result.files[index] = S3CustomUrl.transformURL(originalUrl);
+                    result.files[index] = S3PathUrl.transformURL(originalUrl);
                 });
             }
             return result;
@@ -112,11 +112,11 @@ class S3CustomUrl {
 }
 
 Hooks.once('init', async function () {
-    S3CustomUrl.initialize();
+    S3PathUrl.initialize();
 });
 
-let S3CustomURL = {
-    createS3URL: S3CustomUrl.createS3URL
+let S3PathURL = {
+    createS3URL: S3PathUrl.createS3URL
 }
 
-window.S3CustomURL = S3CustomURL;
+window.S3PathURL = S3PathURL;
