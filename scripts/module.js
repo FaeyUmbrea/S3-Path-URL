@@ -55,7 +55,7 @@ class S3PathUrl {
             let result = await wrapped(...args);
             if (args[0] === "s3") {
                 let originalURL = result.path;
-                result.path = transformURL(originalUrl);
+                result.path = S3PathUrl.transformURL(originalUrl);
             }
             return result;
         }, libWrapper.WRAPPER);
