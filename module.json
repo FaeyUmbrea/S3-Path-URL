@@ -5,8 +5,12 @@
   "version": "This is auto replaced",
   "library": "false",
   "manifestPlusVersion": "1.0.0",
-  "minimumCoreVersion": "9",
-  "compatibleCoreVersion": "10",
+  "minimumCoreVersion": "10",
+  "compatibility": {
+    "minimum": 10,
+    "verified": "10.286",
+    "maximum": "10"
+  },
   "authors": [
     {
       "name": "Faey Umbrea",
@@ -14,11 +18,11 @@
       "discord": "Faey#0001"
     }
   ],
-  "dependencies": [
-    {
-        "name": "lib-wrapper"
-    }
-  ],
+  "relationships": {
+    "requires": [{
+      "id": "lib-wrapper"
+    }]
+  },
   "conflicts": [
     
   ],
