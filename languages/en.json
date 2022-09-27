@@ -12,6 +12,14 @@
           "custom_style": {
             "Name": "Custom Style URL",
             "Hint": "If checked, it will replace the URLs with the custom prefix. Path Style will be ignored. (Requires Reload)"
+          },
+          "bucketname": {
+            "Name": "Custom Style Bucket Name",
+            "Hint": "Enter the proper Bucket Name of the bucket that will use custom prefixing."
+          },
+          "custombucket": {
+            "Name": "Use Custom Style Bucket Name",
+            "Hint": "If checked, will override autodetected bucketname with Custom Style Bucket Name. Use this if you get 'Bucket does not exist' Errors with Custom Style URL."
           }
         }
       }

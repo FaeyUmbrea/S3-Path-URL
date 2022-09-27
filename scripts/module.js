@@ -2,7 +2,9 @@ class S3Utils {
     static SETTINGS = {
         CUSTOM_PREFIX: "custom_prefix",
         PATH_STYLE: "path_style",
-        CUSTOM_STYLE: "custom_style"
+        CUSTOM_STYLE: "custom_style",
+        BUCKETNAME: "bucketname",
+        CUSTOMBUCKET: "custombucket"
     }
     static ID = 's3-path-url'
 
@@ -48,11 +50,19 @@ class S3Utils {
     
         game.settings.register(this.ID, this.SETTINGS.CUSTOM_PREFIX, {
             name: `S3_PATH_URL.settings.${this.SETTINGS.CUSTOM_PREFIX}.Name`,
-            default: "https://url.to.endpoint.com/bucket/",
+            default: "url.to.endpoint.com",
             type: String,
             scope: 'world',
             config: true,
             hint: `S3_PATH_URL.settings.${this.SETTINGS.CUSTOM_PREFIX}.Hint`,
+        });
+        game.settings.register(this.ID, this.SETTINGS.BUCKETNAME, {
+            name: `S3_PATH_URL.settings.${this.SETTINGS.BUCKETNAME}.Name`,
+            type: String,
+            scope: 'world',
+            default: 'foundry',
+            config: true,
+            hint: `S3_PATH_URL.settings.${this.SETTINGS.BUCKETNAME}.Hint`,
         });
 
         game.settings.register(this.ID, this.SETTINGS.CUSTOM_STYLE, {
@@ -62,6 +72,14 @@ class S3Utils {
             scope: 'world',
             config: true,
             hint: `S3_PATH_URL.settings.${this.SETTINGS.CUSTOM_STYLE}.Hint`,
+        });
+        game.settings.register(this.ID, this.SETTINGS.CUSTOMBUCKET, {
+            name: `S3_PATH_URL.settings.${this.SETTINGS.CUSTOMBUCKET}.Name`,
+            default: false,
+            type: Boolean,
+            scope: 'world',
+            config: true,
+            hint: `S3_PATH_URL.settings.${this.SETTINGS.CUSTOMBUCKET}.Hint`,
         });
     }
 
@@ -79,6 +97,17 @@ class S3Utils {
                 result.files?.forEach((file, index) => {
                     result.files[index] = S3Utils.transformURL(file);
                 });
+            }
+            return result;
+        }, libWrapper.WRAPPER);
+        libWrapper.register(this.ID, "FilePicker.matchS3URL", async function (wrapped, ...args){
+            let result = await wrapped(...args);
+            if (game.settings.get(this.ID, this.SETTINGS.CUSTOM_STYLE)&&game.settings.get(this.ID, this.SETTINGS.CUSTOMBUCKET)){
+                bucketName = game.settings.get(this.ID, this.SETTINGS.BUCKETNAME);
+                if(result.groups.bucket != bucketName){
+                    result.groups.key = result.groups.bucket + "/" + result.groups.key;
+                    result.groups.bucket = bucketName;
+                }
             }
             return result;
         }, libWrapper.WRAPPER);
