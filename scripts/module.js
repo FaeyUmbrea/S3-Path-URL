@@ -100,7 +100,7 @@ class S3Utils {
             }
             return result;
         }, libWrapper.WRAPPER);
-        libWrapper.register(this.ID, "FilePicker.matchS3URL", async function (wrapped, ...args){
+        libWrapper.register(this.ID, "FilePicker.matchS3URL", function (wrapped, ...args){
             let result = await wrapped(...args);
             if (game.settings.get('s3-path-url', "custom_style")&&game.settings.get('s3-path-url', "custombucket")){
                 let bucketName = game.settings.get('s3-path-url', "bucketname");
