@@ -102,6 +102,7 @@ class S3Utils {
         }, libWrapper.WRAPPER);
         libWrapper.register(this.ID, "FilePicker.matchS3URL", function (wrapped, ...args){
             let result = wrapped(...args);
+            if(result){
             if (game.settings.get('s3-path-url', "custom_style")&&game.settings.get('s3-path-url', "custombucket")){
                 let bucketName = game.settings.get('s3-path-url', "bucketname");
                 if(result.groups.bucket != bucketName){
@@ -109,8 +110,18 @@ class S3Utils {
                     result.groups.bucket = bucketName;
                 }
             }
+        }
             return result;
         }, libWrapper.WRAPPER);
+        if (game.modules.get('moulinette-core')?.active) {
+            libWrapper.register(this.ID, "game.moulinette.applications.MoulinetteFileUtil.getBaseURL", async function (wrapped, ...args){
+                let result = await wrapped(...args);
+                if(result != "" && result){
+                    result = S3Utils.transformURL(result);
+                }
+                return result;
+            });
+        }
     }
 
     static transformURL(url) {
