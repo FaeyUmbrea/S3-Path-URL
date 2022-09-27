@@ -1,14 +1,16 @@
-class S3PathUrl {
+class S3Utils {
     static SETTINGS = {
         CUSTOM_PREFIX: "custom_prefix",
         PATH_STYLE: "path_style",
-        CUSTOM_STYLE: "custom_style",
+        CUSTOM_STYLE: "custom_style"
     }
     static ID = 's3-path-url'
 
     static initialize(){
-        if (!game.modules.get('lib-wrapper')?.active && game.user.isGM) {
-            ui.notifications.error("Module S3 Custom URL requires the 'libWrapper' module. Please install and activate it.");
+        if (!game.modules.get('lib-wrapper')?.active) {
+            if(game.user.isGM){
+                ui.notifications.error("Module S3 Custom URL requires the 'libWrapper' module. Please install and activate it.");
+            }
             return;
         }
     
@@ -19,6 +21,19 @@ class S3PathUrl {
         //Register Wrappers
 
         this.registerWrappers();
+    }
+
+    static overrideData(){
+        if (!game.modules.get('lib-wrapper')?.active) {
+            return;
+        }
+        
+        if(game.settings.get(this.ID, this.SETTINGS.CUSTOM_STYLE)){
+            game.data.files.s3.endpoint.hostname = game.settings.get(this.ID, this.SETTINGS.CUSTOM_PREFIX);
+            game.data.files.s3.endpoint.host = game.settings.get(this.ID, this.SETTINGS.CUSTOM_PREFIX);
+            game.data.files.s3.endpoint.href = game.data.files.s3.endpoint.protocol + "//" + game.settings.get(this.ID, this.SETTINGS.CUSTOM_PREFIX);
+        }
+
     }
 
     static registerSettings(){
@@ -76,12 +91,12 @@ class S3PathUrl {
             vhostBucket = tokens[2],
             bucket = vhostBucket.split(".")[0];
     
-        return this.createS3URL(bucket,path);
+        return this.createS3URL(bucket,path,url);
     }
 
-    static createS3URL(bucket, filepath){
+    static createS3URL(bucket, filepath,url){
         let uri;
-        if (!game.settings.get('s3-path-url', "custom_style")&&game.settings.get('s3-path-url',"path_style")){
+        if (!game.settings.get(this.ID, this.SETTINGS.CUSTOM_STYLE)&&game.settings.get(this.ID,this.SETTINGS.PATH_STYLE)){
             uri = 
             game.data.files.s3.endpoint.protocol + 
             "//" + 
@@ -91,25 +106,19 @@ class S3PathUrl {
             "/" +
             filepath
         }
-        else if(game.settings.get('s3-path-url', "custom_style")){
-            uri = game.settings.get('s3-path-url', "custom_prefix") + filepath;   
+        else if(game.settings.get(this.ID, this.SETTINGS.CUSTOM_STYLE)){
+            uri = game.data.files.s3.endpoint.href + "/" +  filepath;   
         }
-        else{
-            uri = 
-            game.data.files.s3.endpoint.protocol +
-            "//" +
-            bucket +
-            "." +
-            game.data.files.s3.endpoint.hostname +
-            "/" +
-            filepath;
-        }
-        return uri;
+        return url;
     }
 }
 
 Hooks.once('init', async function () {
     S3PathUrl.initialize();
+});
+
+Hooks.once('ready', async function (){
+    S3PathUrl.overrideData();
 });
 
 let S3PathURL = {

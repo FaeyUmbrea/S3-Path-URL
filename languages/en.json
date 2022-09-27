@@ -2,16 +2,16 @@
     "S3_PATH_URL": {
         "settings": {
           "custom_prefix": {
-            "Name": "[EXPERIMENTAL] Custom Prefix",
-            "Hint": "Replaces the entire hostname of the S3 URL. The URL will be [Custom Prefix][Path with leading / removed]"
+            "Name": "Custom Prefix",
+            "Hint": "Replaces the entire hostname of the S3 URL. The URL will be [Backend Protocol][Custom Prefix]/[Path]"
           },
           "path_style": {
             "Name": "Path Style URL",
-            "Hint": "If checked, it will convert the URLs to Path Style URLs."
+            "Hint": "If checked, it will convert the URLs to Path Style URLs. (Requires Reload)"
           },
           "custom_style": {
             "Name": "Custom Style URL",
-            "Hint": "If checked, it will replace the URLs with the custom prefix. Path Style will be ignored"
+            "Hint": "If checked, it will replace the URLs with the custom prefix. Path Style will be ignored. (Requires Reload)"
           }
         }
       }
