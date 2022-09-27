@@ -6,7 +6,7 @@
   "library": "false",
   "manifestPlusVersion": "1.0.0",
   "minimumCoreVersion": "9",
-  "compatibleCoreVersion": "9",
+  "compatibleCoreVersion": "10",
   "authors": [
     {
       "name": "Faey Umbrea",
@@ -24,9 +24,6 @@
   ],
   "esmodules": [
     "scripts/module.js"
-  ],
-  "scripts": [
-    "scripts/lib/lib.js"
   ],
   "styles": [
     "styles/module.css"
