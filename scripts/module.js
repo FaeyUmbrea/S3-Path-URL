@@ -69,7 +69,7 @@ class S3Utils {
         libWrapper.register(this.ID, "FilePicker.upload", async function (wrapped, ...args) {
             let result = await wrapped(...args);
             if (args[0] === "s3" && !!result.path) {
-                result.path = S3PathUrl.transformURL(result.path);
+                result.path = S3Utils.transformURL(result.path);
             }
             return result;
         }, libWrapper.WRAPPER);
@@ -77,7 +77,7 @@ class S3Utils {
             let result = await wrapped(...args);
             if (args[0] === "s3") {
                 result.files?.forEach((file, index) => {
-                    result.files[index] = S3PathUrl.transformURL(file);
+                    result.files[index] = S3Utils.transformURL(file);
                 });
             }
             return result;
@@ -114,15 +114,15 @@ class S3Utils {
 }
 
 Hooks.once('init', async function () {
-    S3PathUrl.initialize();
+    S3Utils.initialize();
 });
 
 Hooks.once('ready', async function (){
-    S3PathUrl.overrideData();
+    S3Utils.overrideData();
 });
 
 let S3PathURL = {
-    createS3URL: S3PathUrl.createS3URL
+    createS3URL: S3Utils.createS3URL
 }
 
 window.S3PathURL = S3PathURL;
