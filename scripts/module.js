@@ -164,8 +164,8 @@ Hooks.once('ready', async function (){
     S3Utils.overrideData();
 });
 
-let S3PathURL = {
+let S3Utilss = {
     createS3URL: S3Utils.createS3URL
 }
 
-window.S3PathURL = S3PathURL;
+window.S3Utils = S3Utilss;
