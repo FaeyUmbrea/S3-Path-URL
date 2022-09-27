@@ -109,7 +109,10 @@ class S3Utils {
         else if(game.settings.get(this.ID, this.SETTINGS.CUSTOM_STYLE)){
             uri = game.data.files.s3.endpoint.href + "/" +  filepath;   
         }
-        return url;
+        else {
+            uri = url;
+        }
+        return uri;
     }
 }
 
