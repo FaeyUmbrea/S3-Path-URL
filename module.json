@@ -1,5 +1,5 @@
 {
-  "name": "s3-path-url",
+  "id": "s3-path-url",
   "title": "Amazon S3 Utils",
   "description": "This module allows client-side modifications to S3 URLs, allowing support for Path-Style and other weird configurations.",
   "version": "This is auto replaced",
