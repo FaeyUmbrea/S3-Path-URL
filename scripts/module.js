@@ -134,7 +134,7 @@ class S3Utils {
             return url;
         }
         const tokens = url.split("/");
-        path = tokens.slice(3).join("/");
+        var path = tokens.slice(3).join("/");
         const vhostBucket = tokens[2];
         const bucket = vhostBucket.split(".")[0];
 
