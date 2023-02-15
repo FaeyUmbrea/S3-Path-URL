@@ -124,14 +124,27 @@ class S3Utils {
         }
     }
 
+    /**
+     * 
+     * @param {string} url 
+     * @returns string
+     */
     static transformURL(url) {
         if(game.settings.get('s3-path-url', "custom_style")&&url.startsWith(game.data.files.s3.endpoint.href)){
             return url;
         }
         const tokens = url.split("/");
-        const path = tokens.slice(3).join("/");
+        path = tokens.slice(3).join("/");
         const vhostBucket = tokens[2];
         const bucket = vhostBucket.split(".")[0];
+
+        if(game.settings.get('s3-path-url', "custom_style")){
+            const hostWOBucket = vhostBucket.split(".").slice(1).join(".");
+            const tempUrl = tokens[0] + "//" + hostWOBucket + path
+            if(tempUrl.startsWith(game.data.files.s3.endpoint.href)){
+                path = tempUrl.replace(game.data.files.s3.endpoint.href,"");
+            }
+        }
     
         return this.createS3URL(bucket,path,url);
     }
