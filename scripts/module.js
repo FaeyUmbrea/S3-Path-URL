@@ -140,7 +140,7 @@ class S3Utils {
 
         if(game.settings.get('s3-path-url', "custom_style")){
             const hostWOBucket = vhostBucket.split(".").slice(1).join(".");
-            const tempUrl = tokens[0] + "//" + hostWOBucket + path
+            const tempUrl = tokens[0] + "//" + hostWOBucket + "/" + path
             if(tempUrl.startsWith(game.data.files.s3.endpoint.href)){
                 path = tempUrl.replace(game.data.files.s3.endpoint.href,"");
             }
