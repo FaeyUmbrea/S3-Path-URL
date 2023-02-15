@@ -37,7 +37,9 @@ URLs from other buckets still work by just pasting them into the file pickers te
 
 This feature is very experimental and might break easily. Expect foundry to behave very wierdly if you ever use it and then turn it off.
 
-# Compatibility
-
-Known broken modules:
-- ddb-importer (Does custom S3 URL generation, patches will not work)
+## Compatibility
+Tested Modules:
+ - D&D Beyond Importer: Fully works! Including munching to S3
+ - Moulinette: Fully supported for file upload and link generation
+ 
+Feel free to let me know if there is any issues!
