@@ -32,6 +32,7 @@ class S3Utils {
         
         if(game.settings.get(this.ID, this.SETTINGS.CUSTOM_STYLE)){
             game.data.files.s3.endpoint.hostname = game.settings.get(this.ID, this.SETTINGS.CUSTOM_PREFIX);
+            game.data.files.s3.endpoint.port = game.settings.get(this.ID, this.SETTINGS.CUSTOM_PREFIX);
             game.data.files.s3.endpoint.host = game.settings.get(this.ID, this.SETTINGS.CUSTOM_PREFIX);
             game.data.files.s3.endpoint.href = game.data.files.s3.endpoint.protocol + "//" + game.settings.get(this.ID, this.SETTINGS.CUSTOM_PREFIX);
         }
@@ -156,6 +157,12 @@ class S3Utils {
             game.data.files.s3.endpoint.protocol + 
             "//" + 
             game.data.files.s3.endpoint.hostname + 
+            ((game.data.files.s3.endpoint.port === 80) ? "" : ((game.data.files.s3.endpoint.port === 443) ? "" : ":" + game.data.files.s3.endpoint.port)) +
+                /* Add port number only if endpoint port isn't 80 or 443.
+                   Tested & verified to work on an endpoint port that ISN'T 80 or 443,
+                   but unsure how this logic holds up if given an endpoint URI without port.
+                   Also unsure if AWS SDK assumes the port in the endpoint object based on protocol.
+                   TL;DR Needs testing. */
             "/" +
             bucket +
             "/" +
