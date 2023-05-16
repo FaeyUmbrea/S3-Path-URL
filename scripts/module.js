@@ -32,7 +32,6 @@ class S3Utils {
         
         if(game.settings.get(this.ID, this.SETTINGS.CUSTOM_STYLE)){
             game.data.files.s3.endpoint.hostname = game.settings.get(this.ID, this.SETTINGS.CUSTOM_PREFIX);
-            game.data.files.s3.endpoint.port = game.settings.get(this.ID, this.SETTINGS.CUSTOM_PREFIX); // No idea what this does, truth be told.
             game.data.files.s3.endpoint.host = game.settings.get(this.ID, this.SETTINGS.CUSTOM_PREFIX);
             game.data.files.s3.endpoint.href = game.data.files.s3.endpoint.protocol + "//" + game.settings.get(this.ID, this.SETTINGS.CUSTOM_PREFIX);
         }
