@@ -40,10 +40,10 @@ class S3Utils {
             prevHostname = game.data.files.s3.endpoint.hostname;
             prevProtocol = game.data.files.s3.endpoint.protocol;
 
-            game.data.files.s3.endpoint.hostname = game.settings.get(this.ID, this.SETTINGS.CUSTOM_PREFIX);
-            game.data.files.s3.endpoint.host = game.settings.get(this.ID, this.SETTINGS.CUSTOM_PREFIX);
-            game.data.files.s3.endpoint.href = game.data.files.s3.endpoint.protocol + "//" + game.settings.get(this.ID, this.SETTINGS.CUSTOM_PREFIX);
-            game.data.files.s3.endpoint.protocol = game.settings.get(this.ID, this.SETTINGS.CUSTOM_PREFIX).split(':')[0]+":";
+            game.data.files.s3.endpoint.hostname = game.settings.get(this.ID, this.SETTINGS.CUSTOM_PREFIX).split("//")[1];
+            game.data.files.s3.endpoint.host = game.settings.get(this.ID, this.SETTINGS.CUSTOM_PREFIX).split("//")[1];
+            game.data.files.s3.endpoint.href = game.settings.get(this.ID, this.SETTINGS.CUSTOM_PREFIX);
+            game.data.files.s3.endpoint.protocol = game.settings.get(this.ID, this.SETTINGS.CUSTOM_PREFIX).split('//')[0];
         }
 
     }
@@ -138,7 +138,9 @@ class S3Utils {
             }
             if (url.includes(splitHref[1])){
                 // if URL has been mangled by some other module, discard anything before the href without the protocol.
-                return game.data.files.s3.endpoint.href + url.split(splitHref[1])[1];
+                let path = url.split(splitHref[1])[1]
+                path = path.startsWith("/") ? path : "/" + path;
+                return game.data.files.s3.endpoint.href + path;
             }
         }
 
