@@ -131,8 +131,15 @@ class S3Utils {
      * @returns string
      */
     static transformURL(url) {
-        if(game.settings.get('s3-path-url', "custom_style")&&url.startsWith(prevHref)){
-            return url.replace(prevHref,game.data.files.s3.endpoint.href);
+        const splitHref = prevHref.split('//')
+        if(game.settings.get('s3-path-url', "custom_style")) {
+            if (url.startsWith(prevHref)) {
+                return url.replace(prevHref, game.data.files.s3.endpoint.href);
+            }
+            if (url.includes(splitHref[1])){
+                // if URL has been mangled by some other module, discard anything before the href without the protocol.
+                return game.data.files.s3.endpoint.href + url.split(splitHref[1])[1];
+            }
         }
 
         return url;
