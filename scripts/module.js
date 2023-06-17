@@ -1,7 +1,11 @@
+let prevHref;
+let prevHost;
+let prevHostname;
+let prevProtocol;
+
 class S3Utils {
     static SETTINGS = {
         CUSTOM_PREFIX: "custom_prefix",
-        PATH_STYLE: "path_style",
         CUSTOM_STYLE: "custom_style",
         BUCKETNAME: "bucketname",
         CUSTOMBUCKET: "custombucket"
@@ -15,11 +19,11 @@ class S3Utils {
             }
             return;
         }
-    
+
         //Register Setting
 
         this.registerSettings();
-    
+
         //Register Wrappers
 
         this.registerWrappers();
@@ -29,25 +33,22 @@ class S3Utils {
         if (!game.modules.get('lib-wrapper')?.active) {
             return;
         }
-        
+
         if(game.settings.get(this.ID, this.SETTINGS.CUSTOM_STYLE)){
+            prevHref = game.data.files.s3.endpoint.href;
+            prevHost = game.data.files.s3.endpoint.host;
+            prevHostname = game.data.files.s3.endpoint.hostname;
+            prevProtocol = game.data.files.s3.endpoint.protocol;
+
             game.data.files.s3.endpoint.hostname = game.settings.get(this.ID, this.SETTINGS.CUSTOM_PREFIX);
             game.data.files.s3.endpoint.host = game.settings.get(this.ID, this.SETTINGS.CUSTOM_PREFIX);
             game.data.files.s3.endpoint.href = game.data.files.s3.endpoint.protocol + "//" + game.settings.get(this.ID, this.SETTINGS.CUSTOM_PREFIX);
+            game.data.files.s3.endpoint.protocol = game.settings.get(this.ID, this.SETTINGS.CUSTOM_PREFIX).split(':')[0]+":";
         }
 
     }
 
     static registerSettings(){
-        game.settings.register(this.ID, this.SETTINGS.PATH_STYLE, {
-            name: `S3_PATH_URL.settings.${this.SETTINGS.PATH_STYLE}.Name`,
-            default: true,
-            type: Boolean,
-            scope: 'world',
-            config: true,
-            hint: `S3_PATH_URL.settings.${this.SETTINGS.PATH_STYLE}.Hint`,
-        });
-    
         game.settings.register(this.ID, this.SETTINGS.CUSTOM_PREFIX, {
             name: `S3_PATH_URL.settings.${this.SETTINGS.CUSTOM_PREFIX}.Name`,
             default: "url.to.endpoint.com",
@@ -103,14 +104,14 @@ class S3Utils {
         libWrapper.register(this.ID, "FilePicker.matchS3URL", function (wrapped, ...args){
             let result = wrapped(...args);
             if(result){
-            if (game.settings.get('s3-path-url', "custom_style")&&game.settings.get('s3-path-url', "custombucket")){
-                let bucketName = game.settings.get('s3-path-url', "bucketname");
-                if(result.groups.bucket != bucketName){
-                    result.groups.key = result.groups.bucket + "/" + result.groups.key;
-                    result.groups.bucket = bucketName;
+                if (game.settings.get('s3-path-url', "custom_style")&&game.settings.get('s3-path-url', "custombucket")){
+                    let bucketName = game.settings.get('s3-path-url', "bucketname");
+                    if(result.groups.bucket != bucketName){
+                        result.groups.key = result.groups.bucket + "/" + result.groups.key;
+                        result.groups.bucket = bucketName;
+                    }
                 }
             }
-        }
             return result;
         }, libWrapper.WRAPPER);
         if (game.modules.get('moulinette-core')?.active) {
@@ -125,49 +126,16 @@ class S3Utils {
     }
 
     /**
-     * 
-     * @param {string} url 
+     *
+     * @param {string} url
      * @returns string
      */
     static transformURL(url) {
-        if(game.settings.get('s3-path-url', "custom_style")&&url.startsWith(game.data.files.s3.endpoint.href)){
-            return url;
+        if(game.settings.get('s3-path-url', "custom_style")&&url.startsWith(prevHref)){
+            return url.replace(prevHref,game.data.files.s3.endpoint.href);
         }
-        const tokens = url.split("/");
-        var path = tokens.slice(3).join("/");
-        const vhostBucket = tokens[2];
-        const bucket = vhostBucket.split(".")[0];
 
-        if(game.settings.get('s3-path-url', "custom_style")){
-            const hostWOBucket = vhostBucket.split(".").slice(1).join(".");
-            const tempUrl = tokens[0] + "//" + hostWOBucket + "/" + path
-            if(tempUrl.startsWith(game.data.files.s3.endpoint.href)){
-                path = tempUrl.replace(game.data.files.s3.endpoint.href,"");
-            }
-        }
-    
-        return this.createS3URL(bucket,path,url);
-    }
-
-    static createS3URL(bucket, filepath,url){
-        let uri;
-        if (!game.settings.get(this.ID, this.SETTINGS.CUSTOM_STYLE)&&game.settings.get(this.ID,this.SETTINGS.PATH_STYLE)){
-            uri = 
-            game.data.files.s3.endpoint.protocol + 
-            "//" + 
-            game.data.files.s3.endpoint.hostname + 
-            "/" +
-            bucket +
-            "/" +
-            filepath
-        }
-        else if(game.settings.get(this.ID, this.SETTINGS.CUSTOM_STYLE)){
-            uri = game.data.files.s3.endpoint.href + "/" +  filepath;   
-        }
-        else {
-            uri = url;
-        }
-        return uri;
+        return url;
     }
 }
 
