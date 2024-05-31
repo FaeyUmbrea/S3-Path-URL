@@ -51,11 +51,12 @@ class S3Utils {
     static registerSettings(){
         game.settings.register(this.ID, this.SETTINGS.CUSTOM_PREFIX, {
             name: `S3_PATH_URL.settings.${this.SETTINGS.CUSTOM_PREFIX}.Name`,
-            default: "url.to.endpoint.com",
+            default: "https://url.to.endpoint.com",
             type: String,
             scope: 'world',
             config: true,
             hint: `S3_PATH_URL.settings.${this.SETTINGS.CUSTOM_PREFIX}.Hint`,
+            requiresReload: true
         });
         game.settings.register(this.ID, this.SETTINGS.BUCKETNAME, {
             name: `S3_PATH_URL.settings.${this.SETTINGS.BUCKETNAME}.Name`,
@@ -64,6 +65,7 @@ class S3Utils {
             default: 'foundry',
             config: true,
             hint: `S3_PATH_URL.settings.${this.SETTINGS.BUCKETNAME}.Hint`,
+            requiresReload: true
         });
 
         game.settings.register(this.ID, this.SETTINGS.CUSTOM_STYLE, {
@@ -73,6 +75,7 @@ class S3Utils {
             scope: 'world',
             config: true,
             hint: `S3_PATH_URL.settings.${this.SETTINGS.CUSTOM_STYLE}.Hint`,
+            requiresReload: true
         });
         game.settings.register(this.ID, this.SETTINGS.CUSTOMBUCKET, {
             name: `S3_PATH_URL.settings.${this.SETTINGS.CUSTOMBUCKET}.Name`,
@@ -81,6 +84,7 @@ class S3Utils {
             scope: 'world',
             config: true,
             hint: `S3_PATH_URL.settings.${this.SETTINGS.CUSTOMBUCKET}.Hint`,
+            requiresReload: true
         });
     }
 
@@ -106,7 +110,7 @@ class S3Utils {
             if(result){
                 if (game.settings.get('s3-path-url', "custom_style")&&game.settings.get('s3-path-url', "custombucket")){
                     let bucketName = game.settings.get('s3-path-url', "bucketname");
-                    if(result.groups.bucket != bucketName){
+                    if(result.groups.bucket !== bucketName){
                         result.groups.key = result.groups.bucket + "/" + result.groups.key;
                         result.groups.bucket = bucketName;
                     }
@@ -117,7 +121,7 @@ class S3Utils {
         if (game.modules.get('moulinette-core')?.active) {
             libWrapper.register(this.ID, "game.moulinette.applications.MoulinetteFileUtil.getBaseURL", async function (wrapped, ...args){
                 let result = await wrapped(...args);
-                if(result != "" && result){
+                if(result !== "" && result){
                     result = S3Utils.transformURL(result);
                 }
                 return result;
@@ -131,8 +135,8 @@ class S3Utils {
      * @returns string
      */
     static transformURL(url) {
-        const splitHref = prevHref.split('//')
-        if(game.settings.get('s3-path-url', "custom_style")) {
+        if(game.settings.get('s3-path-url', this.SETTINGS.CUSTOM_STYLE)) {
+            const splitHref = prevHref.split('//')
             if (url.startsWith(prevHref)) {
                 return url.replace(prevHref, game.data.files.s3.endpoint.href);
             }

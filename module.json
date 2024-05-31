@@ -1,15 +1,15 @@
 {
   "id": "s3-path-url",
   "title": "Amazon S3 Utils",
-  "description": "This module allows client-side modifications to S3 URLs, allowing support for Path-Style and other weird configurations.",
+  "description": "This module allows client-side modifications to S3 URLs, allowing support for weird configurations.",
   "version": "This is auto replaced",
   "library": "false",
   "manifestPlusVersion": "1.0.0",
-  "minimumCoreVersion": "10",
+  "minimumCoreVersion": "11",
   "compatibility": {
     "minimum": "11.302",
-    "verified": "11",
-    "maximum": "11"
+    "verified": "12",
+    "maximum": "12"
   },
   "authors": [
     {
