@@ -47,3 +47,7 @@ Tested Modules:
  - Moulinette: Fully supported for file upload and link generation
  
 Feel free to let me know if there are any issues!
+
+## Code contributions
+
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) and accept the [Code Contributor Agreement v1.0](CONTRIBUTOR-AGREEMENT.md) before submitting code.
